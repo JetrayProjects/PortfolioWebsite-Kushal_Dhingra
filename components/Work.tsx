@@ -66,18 +66,18 @@ const workSections: WorkSectionType[] = [
         title: "Music Video",
         projects: [
             {
-                id:"dundidun",
+                id: "dundidun",
                 title: "Mysie - Dun Di Dun",
                 director: "TBD",
                 video: "files/videos/MysieDunDiDun/dundidun.mp4",
                 poster: "/files/photos/Mysie-DunDiDun/Untitled.png"
             },
             {
-                id:"cavn",
+                id: "cavn",
                 title: "CAVN - Carving Stones ft",
                 director: "TBD",
                 video: "/files/videos/cavn/Untitled.mp4",
-                poster: "public/files/photos/cavn/cavn.png"
+                poster: "/files/photos/cavn/cavn.png"
             }
         ]
     },
@@ -123,7 +123,7 @@ function ProjectRow({
             className={cn(
                 "relative group w-full overflow-hidden border-t border-[#89898b]/20 last:border-b transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]",
                 "aspect-square md:aspect-auto", // Square on mobile, height-based on desktop
-                isHovered ? "md:h-[50vh]" : isOthersHovered ? "md:h-[10vh]" : "md:h-[20vh]"
+                isHovered ? "md:h-[50vh]" : "md:h-[20vh]"
             )}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
