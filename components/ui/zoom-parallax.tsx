@@ -11,9 +11,10 @@ interface Image {
 interface ZoomParallaxProps {
     /** Array of images to be displayed in the parallax effect max 7 images */
     images: Image[];
+    children?: React.ReactNode;
 }
 
-export function ZoomParallax({ images }: ZoomParallaxProps) {
+export function ZoomParallax({ images, children }: ZoomParallaxProps) {
     const container = useRef(null);
     const { scrollYProgress } = useScroll({
         target: container,
@@ -26,11 +27,14 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
     const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
     const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
 
+    const textScale = useTransform(scrollYProgress, [0, 0.5], [1, 3]);
+    const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
     const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
     return (
         <div ref={container} className="relative h-[300vh]">
-            <div className="sticky top-0 h-screen overflow-hidden">
+            <div className="sticky top-0 h-screen overflow-hidden bg-black flex items-center justify-center">
                 {images.map(({ src, alt }, index) => {
                     const scale = scales[index % scales.length];
 
@@ -50,6 +54,15 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
                         </motion.div>
                     );
                 })}
+
+                {children && (
+                    <motion.div
+                        style={{ scale: textScale, opacity: textOpacity }}
+                        className="absolute z-[100] pointer-events-none flex flex-col items-center justify-center drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] p-4"
+                    >
+                        {children}
+                    </motion.div>
+                )}
             </div>
         </div>
     );

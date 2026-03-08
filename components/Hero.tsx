@@ -35,24 +35,15 @@ const images = [
 export default function Hero() {
     return (
         <section id="home">
-            {/* Hero title overlay — visible as the sticky section starts */}
-            <div className="relative flex h-screen items-center justify-center">
-                <div className="absolute inset-0 bg-black" />
-                <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-widest uppercase text-white font-light mb-6">
-                        Kushal{" "}
-                        <span className="font-semibold text-[#286976]">
-                            Dhingra
-                        </span>
-                    </h1>
-                    <p className="text-sm md:text-lg tracking-[0.3em] text-[#89898b] uppercase">
-                        Director of Photography
-                    </p>
-                </div>
-            </div>
-
-            {/* Zoom Parallax gallery */}
-            <ZoomParallax images={images} />
+            {/* Zoom Parallax gallery with nested title text */}
+            <ZoomParallax images={images}>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-widest uppercase text-white font-light m-0 flex flex-col md:block text-center items-center">
+                    Kushal{" "}
+                    <span className="font-semibold text-[#286976]">
+                        Dhingra
+                    </span>
+                </h1>
+            </ZoomParallax>
         </section>
     );
 }
