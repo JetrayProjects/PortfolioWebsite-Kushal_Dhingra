@@ -6,27 +6,27 @@ import { ZoomParallax } from "@/components/ui/zoom-parallax";
 // TODO: Replace placeholder URLs with your own images
 const images = [
     {
-        src: "/files/photos/Kushal_Images/Kushal-landscape.jpeg",
+        src: "/files/photos/Kushal_Images/Kushal-landscape.webp",
         alt: "Kushal landscape image",
     },
     {
-        src: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-30 at 17.37.32.png",
+        src: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-30 at 17.37.32.webp",
         alt: "Anthyesti",
     },
     {
-        src: "/files/photos/On the Back Burner/Screenshot (569).png",
+        src: "/files/photos/On the Back Burner/Screenshot (569).webp",
         alt: "On the Back Burner",
     },
     {
-        src: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.png",
+        src: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.webp",
         alt: "Until we dance again",
     },
     {
-        src: "/files/photos/Vendetta/000132770024.jpg",
+        src: "/files/photos/Vendetta/000132770024.webp",
         alt: "Vendetta",
     },
     {
-        src: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-23 at 22.00.29.png",
+        src: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-23 at 22.00.29.webp",
         alt: "Anthesthi 2",
     },
 

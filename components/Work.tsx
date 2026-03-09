@@ -25,28 +25,28 @@ const workSections: WorkSectionType[] = [
                 title: "Antyesthi",
                 director: "TBD",
                 video: "/files/videos/Antyesthi/Anthyesti clip.mp4",
-                poster: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-24 at 21.40.06.png",
+                poster: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-24 at 21.40.06.webp",
             },
             {
                 id: "back-burner",
                 title: "On the Back Burner",
                 director: "TBD",
                 video: "/files/videos/On the Back Burner/oTBB.mp4",
-                poster: "/files/photos/On the Back Burner/Screenshot (549).png",
+                poster: "/files/photos/On the Back Burner/Screenshot (549).webp",
             },
             {
                 id: "until-we-dance",
                 title: "Until We Dance Again",
                 director: "TBD",
                 video: "/files/videos/Until We Dance Again/The furnished room clip.mp4",
-                poster: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.png",
+                poster: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.webp",
             },
             {
                 id: "blade-butterfly",
                 title: "The Blade and the Butterfly",
                 director: "TBD",
                 video: "/files/videos/TheBladeandTheButterfly/thebladeandthebutterfly.mp4",
-                poster: "/files/photos/The-Blade-and-the-Butterfly/README.png",
+                poster: "/files/photos/The-Blade-and-the-Butterfly/README.webp",
             }
         ]
     },
@@ -58,7 +58,7 @@ const workSections: WorkSectionType[] = [
                 title: "Vendetta",
                 director: "TBD",
                 video: "",
-                poster: "/files/photos/Vendetta/IMG_2729.jpg",
+                poster: "/files/photos/Vendetta/IMG_2729.webp",
             }
         ]
     },
@@ -70,14 +70,14 @@ const workSections: WorkSectionType[] = [
                 title: "Mysie - Dun Di Dun",
                 director: "TBD",
                 video: "files/videos/MysieDunDiDun/dundidun.mp4",
-                poster: "/files/photos/Mysie-DunDiDun/Untitled.png"
+                poster: "/files/photos/Mysie-DunDiDun/Untitled.webp"
             },
             {
                 id: "cavn",
                 title: "CAVN - Carving Stones ft",
                 director: "TBD",
                 video: "/files/videos/cavn/Untitled.mp4",
-                poster: "/files/photos/cavn/cavn.png"
+                poster: "/files/photos/cavn/cavn.webp"
             }
         ]
     },
