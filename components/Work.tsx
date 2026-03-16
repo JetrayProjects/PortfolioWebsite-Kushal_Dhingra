@@ -1,91 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
-
-type Project = {
-    id: string | number;
-    title: string;
-    director?: string;
-    video: string;
-    poster: string;
-};
-
-type WorkSectionType = {
-    title: string;
-    projects: Project[];
-};
-
-const workSections: WorkSectionType[] = [
-    {
-        title: "Films",
-        projects: [
-            {
-                id: "antyesthi",
-                title: "Antyesthi",
-                director: "TBD",
-                video: "/files/videos/Antyesthi/Anthyesti clip.mp4",
-                poster: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-24 at 21.40.06.webp",
-            },
-            {
-                id: "back-burner",
-                title: "On the Back Burner",
-                director: "TBD",
-                video: "/files/videos/On the Back Burner/oTBB.mp4",
-                poster: "/files/photos/On the Back Burner/Screenshot (549).webp",
-            },
-            {
-                id: "until-we-dance",
-                title: "Until We Dance Again",
-                director: "TBD",
-                video: "/files/videos/Until We Dance Again/The furnished room clip.mp4",
-                poster: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.webp",
-            },
-            {
-                id: "blade-butterfly",
-                title: "The Blade and the Butterfly",
-                director: "TBD",
-                video: "/files/videos/TheBladeandTheButterfly/thebladeandthebutterfly.mp4",
-                poster: "/files/photos/The-Blade-and-the-Butterfly/README.webp",
-            }
-        ]
-    },
-    {
-        title: "Brand Work",
-        projects: [
-            {
-                id: "vendetta",
-                title: "Vendetta",
-                director: "TBD",
-                video: "",
-                poster: "/files/photos/Vendetta/IMG_2729.webp",
-            }
-        ]
-    },
-    {
-        title: "Music Video",
-        projects: [
-            {
-                id: "dundidun",
-                title: "Mysie - Dun Di Dun",
-                director: "TBD",
-                video: "files/videos/MysieDunDiDun/dundidun.mp4",
-                poster: "/files/photos/Mysie-DunDiDun/Untitled.webp"
-            },
-            {
-                id: "cavn",
-                title: "CAVN - Carving Stones ft",
-                director: "TBD",
-                video: "/files/videos/cavn/Untitled.mp4",
-                poster: "/files/photos/cavn/cavn.webp"
-            }
-        ]
-    },
-    {
-        title: "Film Photography",
-        projects: []
-    }
-];
+import { workSections, Project } from "@/lib/data";
 
 function ProjectRow({
     project,
@@ -119,9 +37,10 @@ function ProjectRow({
     }, [isHovered, isMobile]);
 
     return (
-        <div
+        <Link
+            href={`/work/${project.id}`}
             className={cn(
-                "relative group w-full overflow-hidden border-t border-[#89898b]/20 last:border-b transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]",
+                "block relative group w-full overflow-hidden border-t border-[#89898b]/20 last:border-b transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]",
                 "aspect-square md:aspect-auto", // Square on mobile, height-based on desktop
                 isHovered ? "md:h-[50vh]" : "md:h-[20vh]"
             )}
@@ -158,15 +77,9 @@ function ProjectRow({
                     {project.title}
                 </h3>
 
-                <div className={cn("overflow-hidden transition-all duration-700", (isHovered || isMobile) ? "max-h-20 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0")}>
-                    {project.director && (
-                        <p className="text-[#286976] tracking-[0.2em] uppercase text-sm font-semibold">
-                            Director: <span className="text-[#89898b] font-light">{project.director}</span>
-                        </p>
-                    )}
-                </div>
+
             </div>
-        </div>
+        </Link>
     );
 }
 

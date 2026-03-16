@@ -16,7 +16,7 @@ export default function Contact() {
     return (
         <section id="contact" className="w-full bg-[#000000] py-32 px-8 md:px-16 text-[#ffffff] min-h-[80vh] flex flex-col justify-center border-t border-[#89898b]/10">
             <div className="max-w-3xl mx-auto w-full">
-                <h2 className="text-4xl md:text-6xl lg:text-7xl font-light uppercase tracking-widest mb-4">Let's Talk</h2>
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-light uppercase tracking-widest mb-4">Let&apos;s Talk</h2>
                 <p className="text-[#89898b] tracking-widest uppercase text-xs mb-16">Available for new projects</p>
 
                 {status === "success" ? (

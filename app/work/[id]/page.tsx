@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -22,71 +22,108 @@ export default function ProjectPage({
 }) {
     const resolvedParams = use(params);
     const project = getProjectById(resolvedParams.id);
+    const [loaded, setLoaded] = useState(false);
+
+    // Force scroll to top instantly on mount — prevents scroll restoration
+    useEffect(() => {
+        window.history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Ensure images are fully loaded before calculating vh bounds
-        const ctx = gsap.context(() => {
-            if (project?.stills && project.stills.length >= 4) {
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#about", // Scrub based on About section scroll
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: true,
-                    }
+        if (!project?.stills || project.stills.length < 4) {
+            setLoaded(true);
+            return;
+        }
+
+        // Wait for the first 5 images to load so getBoundingClientRect returns real sizes
+        const imageEls = [0, 1, 2, 3, 4]
+            .map((idx) => document.querySelector(`#stills-img-${idx} img`) as HTMLImageElement)
+            .filter(Boolean);
+
+        const allLoaded = () => imageEls.every((img) => img.complete && img.naturalHeight > 0);
+
+        const setupAnimation = () => {
+            // Wait one frame for layout to settle after images load
+            requestAnimationFrame(() => {
+                const ctx = gsap.context(() => {
+                    const vh = window.innerHeight;
+                    const vw = window.innerWidth;
+
+                    // ===== SCREEN-RELATIVE IMAGE POSITIONS =====
+                    // Image 1 (idx 0): Top Right
+                    // Image 2 (idx 1): Top Left
+                    // Image 3 (idx 2): Bottom Right
+                    // Image 4 (idx 3): Center
+                    // Image 5 (idx 4): Bottom Left
+                    const screenPositions = [
+                        { screenX: 0.80, screenY: 0.10, rotation: -8,  scale: 1.0 },  // Top Right
+                        { screenX: 0.15, screenY: 0.10, rotation: 12,  scale: 1.0 },  // Top Left
+                        { screenX: 0.80, screenY: 0.80, rotation: 3,   scale: 1.0 },  // Bottom Right
+                        { screenX: 0.50, screenY: 0.45, rotation: -5,  scale: 1.0 },  // Center
+                        { screenX: 0.15, screenY: 0.80, rotation: -15, scale: 1.0 },  // Bottom Left
+                    ];
+
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: "#about",
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        }
+                    });
+
+                    [0, 1, 2, 3, 4].forEach((idx) => {
+                        const el = document.getElementById(`stills-img-${idx}`);
+                        if (!el) return;
+
+                        const rect = el.getBoundingClientRect();
+                        const elCenterX = rect.left + rect.width / 2;
+                        const elCenterY = rect.top + rect.height / 2;
+
+                        const config = screenPositions[idx];
+                        const targetScreenX = config.screenX * vw;
+                        const targetScreenY = config.screenY * vh;
+                        const startX = targetScreenX - elCenterX;
+                        const startY = targetScreenY - elCenterY;
+
+                        tl.fromTo(el,
+                            { x: startX, y: startY, rotation: config.rotation, scale: config.scale, opacity: 0.2 },
+                            { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
+                            0
+                        );
+                    });
+
+                    setLoaded(true);
                 });
 
-                const vh = window.innerHeight;
-                const vw = window.innerWidth;
+                return () => ctx.revert();
+            });
+        };
 
-                // ===== SCREEN-RELATIVE IMAGE POSITIONS =====
-                // Each image starts at a specific screen position and animates to its grid slot.
-                // Positions are defined as fractions of the viewport (0-1).
-                // Image 1 (idx 0): Top Right
-                // Image 2 (idx 1): Top Left
-                // Image 3 (idx 2): Bottom Right
-                // Image 4 (idx 3): Center
-                // Image 5 (idx 4): Bottom Left
-                const screenPositions = [
-                    { screenX: 0.80, screenY: 0.10, rotation: -8,  scale: 1.0 },  // Top Right
-                    { screenX: 0.15, screenY: 0.10, rotation: 12,  scale: 1.0 },  // Top Left
-                    { screenX: 0.80, screenY: 0.80, rotation: 3,   scale: 1.0 },  // Bottom Right
-                    { screenX: 0.50, screenY: 0.45, rotation: -5,  scale: 1.0 },  // Center
-                    { screenX: 0.15, screenY: 0.80, rotation: -15, scale: 1.0 },  // Bottom Left
-                ];
+        if (allLoaded()) {
+            setupAnimation();
+        } else {
+            // Listen for each image to load
+            let loadedCount = imageEls.filter((img) => img.complete && img.naturalHeight > 0).length;
+            const onLoad = () => {
+                loadedCount++;
+                if (loadedCount >= imageEls.length) {
+                    setupAnimation();
+                }
+            };
+            imageEls.forEach((img) => {
+                if (!(img.complete && img.naturalHeight > 0)) {
+                    img.addEventListener('load', onLoad, { once: true });
+                }
+            });
 
-                const indicesToAnimate = [0, 1, 2, 3, 4];
-
-                indicesToAnimate.forEach((idx) => {
-                    const el = document.getElementById(`stills-img-${idx}`);
-                    if (!el) return;
-
-                    const rect = el.getBoundingClientRect();
-                    const elCenterX = rect.left + rect.width / 2;
-                    const elCenterY = rect.top + rect.height / 2;
-
-                    const config = screenPositions[idx];
-
-                    // Target screen position in pixels (center of the image should land here)
-                    const targetScreenX = config.screenX * vw;
-                    const targetScreenY = config.screenY * vh;
-
-                    // Offset = where we want the image to be minus where it naturally is
-                    const startX = targetScreenX - elCenterX;
-                    const startY = targetScreenY - elCenterY;
-
-                    tl.fromTo(el,
-                        { x: startX, y: startY, rotation: config.rotation, scale: config.scale, opacity: 0.2 },
-                        { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
-                        0
-                    );
-                });
-            }
-        });
-
-        return () => ctx.revert();
+            return () => {
+                imageEls.forEach((img) => img.removeEventListener('load', onLoad));
+            };
+        }
     }, [project]);
 
     if (!project) {
@@ -94,7 +131,13 @@ export default function ProjectPage({
     }
 
     return (
-        <main className="min-h-screen bg-[#000000] font-serif overflow-hidden relative">
+        <main
+            className="min-h-screen bg-[#000000] font-serif overflow-hidden relative"
+            style={{
+                opacity: loaded ? 1 : 0,
+                transition: "opacity 0.1s ease-in",
+            }}
+        >
             <ProjectNavbar />
 
             {/* About Section (z-20 so it sits above Stills structurally during the overlap) */}
@@ -139,7 +182,7 @@ export default function ProjectPage({
                                         src={still}
                                         alt={`${project.title} still ${idx + 1}`}
                                         className="w-full h-auto"
-                                        loading="lazy"
+                                        loading={idx < 5 ? "eager" : "lazy"}
                                     />
                                 </div>
                             ))}

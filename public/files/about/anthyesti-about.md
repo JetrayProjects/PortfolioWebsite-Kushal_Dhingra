@@ -1,0 +1,1 @@
+Antyeshti is an experimental short film that follows Gopal, a first-generation Indian immigrant in the UK, as he navigates the weight of colonial history and modern-day racism. Blending narrative and surreal imagery inspired by Indian mythology, the film explores identity, cultural erasure, and inherited trauma.

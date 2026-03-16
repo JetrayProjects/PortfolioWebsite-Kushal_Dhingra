@@ -32,6 +32,26 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
 
     const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
+    // Define responsive positioning for images to ensure they fit well on all screen sizes
+    const getStyles = (index: number) => {
+        switch (index) {
+            case 1:
+                return "md:[&>div]:!-top-[30vh] md:[&>div]:!left-[5vw] md:[&>div]:!h-[30vh] md:[&>div]:!w-[35vw] [&>div]:!-top-[22vh] [&>div]:!left-[10vw] [&>div]:!h-[18vh] [&>div]:!w-[45vw]";
+            case 2:
+                return "md:[&>div]:!-top-[10vh] md:[&>div]:!-left-[25vw] md:[&>div]:!h-[45vh] md:[&>div]:!w-[20vw] [&>div]:!-top-[10vh] [&>div]:!-left-[22vw] [&>div]:!h-[25vh] [&>div]:!w-[35vw]";
+            case 3:
+                return "md:[&>div]:!left-[27.5vw] md:[&>div]:!h-[25vh] md:[&>div]:!w-[25vw] [&>div]:!left-[25vw] [&>div]:!top-[5vh] [&>div]:!h-[18vh] [&>div]:!w-[35vw]";
+            case 4:
+                return "md:[&>div]:!top-[27.5vh] md:[&>div]:!left-[18vw] md:[&>div]:!h-[25vh] md:[&>div]:!w-[20vw] [&>div]:!top-[24vh] [&>div]:!left-[15vw] [&>div]:!h-[18vh] [&>div]:!w-[35vw]";
+            case 5:
+                return "md:[&>div]:!top-[27.5vh] md:[&>div]:!-left-[10vw] md:[&>div]:!h-[25vh] md:[&>div]:!w-[30vw] [&>div]:!top-[26vh] [&>div]:!-left-[12vw] [&>div]:!h-[20vh] [&>div]:!w-[45vw]";
+            case 6:
+                return "md:[&>div]:!top-[22.5vh] md:[&>div]:!left-[25vw] md:[&>div]:!h-[15vh] md:[&>div]:!w-[15vw] [&>div]:!top-[15vh] [&>div]:!left-[22vw] [&>div]:!h-[12vh] [&>div]:!w-[25vw]";
+            default:
+                return "";
+        }
+    };
+
     return (
         <div ref={container} className="relative h-[150vh]">
             <div className="sticky top-0 h-screen overflow-hidden bg-black flex items-center justify-center">
@@ -42,13 +62,14 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
                         <motion.div
                             key={index}
                             style={{ scale }}
-                            className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[18vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[10vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
+                            className={`absolute top-0 flex h-full w-full items-center justify-center z-10 ${getStyles(index)}`}
                         >
-                            <div className="relative h-[25vh] w-[25vw]">
+                            <div className="relative h-[20vh] w-[60vw] md:h-[25vh] md:w-[25vw] overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:ring-1 hover:ring-white/20">
                                 <img
                                     src={src || '/placeholder.svg'}
                                     alt={alt || `Parallax image ${index + 1}`}
                                     className="h-full w-full object-cover"
+                                    loading={index < 3 ? "eager" : "lazy"}
                                 />
                             </div>
                         </motion.div>
@@ -58,7 +79,7 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
                 {children && (
                     <motion.div
                         style={{ scale: textScale, opacity: textOpacity }}
-                        className="absolute z-[100] pointer-events-none flex flex-col items-center justify-center drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] p-4"
+                        className="absolute z-[100] pointer-events-none flex flex-col items-center justify-center drop-shadow-[0_0_20px_rgba(0,0,0,0.9)] p-4 text-center max-w-[90vw]"
                     >
                         {children}
                     </motion.div>
