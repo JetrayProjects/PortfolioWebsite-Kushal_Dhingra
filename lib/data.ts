@@ -86,7 +86,18 @@ export const workSections: WorkSectionType[] = [
                 about: [
                     "On the Backburner is a slow, intimate drama that follows two immigrant friends in the UK as they drift through conversations about work, dreams, and displacement. Beneath their casual exchanges lies the quiet anxiety of survival — visas, instability, and the fear of being sent back. As tensions rise between responsibility and desire, the film captures the emotional limbo of putting one’s life “on hold” in a foreign land."
                 ],
-                stills: []
+                stills: [
+                    "/files/photos/On the Back Burner/Screenshot (534).webp",
+                    "/files/photos/On the Back Burner/Screenshot (546).webp",
+                    "/files/photos/On the Back Burner/Screenshot (547).webp",
+                    "/files/photos/On the Back Burner/Screenshot (549).webp",
+                    "/files/photos/On the Back Burner/Screenshot (550).webp",
+                    "/files/photos/On the Back Burner/Screenshot (569).webp",
+                    "/files/photos/On the Back Burner/Screenshot (570).webp",
+                    "/files/photos/On the Back Burner/Screenshot (588).webp",
+                    "/files/photos/On the Back Burner/Screenshot (594).webp",
+                    "/files/photos/On the Back Burner/Screenshot (596).webp"
+                ]
             },
             {
                 id: "until-we-dance",
