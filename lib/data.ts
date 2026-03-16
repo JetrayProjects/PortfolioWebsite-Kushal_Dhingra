@@ -107,7 +107,17 @@ export const workSections: WorkSectionType[] = [
                 about: [
                     "A moving visual piece centered around a furnished room.",
                 ],
-                stills: []
+                stills: [
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.1.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.3.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.4.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.5.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.6.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.7.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.8.webp",
+                    "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.9.webp"
+                ]
             },
             {
                 id: "blade-butterfly",
@@ -132,7 +142,25 @@ export const workSections: WorkSectionType[] = [
                 about: [
                     "High-contrast commercial style for Vendetta.",
                 ],
-                stills: []
+                stills: [
+                    "/files/photos/Vendetta/000132770006.webp",
+                    "/files/photos/Vendetta/000132770011.webp",
+                    "/files/photos/Vendetta/000132770014.webp",
+                    "/files/photos/Vendetta/000132770020.webp",
+                    "/files/photos/Vendetta/000132770024.webp",
+                    "/files/photos/Vendetta/000132770032.webp",
+                    "/files/photos/Vendetta/000132770033.webp",
+                    "/files/photos/Vendetta/000132770035.webp",
+                    "/files/photos/Vendetta/IMG_2549.webp",
+                    "/files/photos/Vendetta/IMG_2715.webp",
+                    "/files/photos/Vendetta/IMG_2729.webp",
+                    "/files/photos/Vendetta/IMG_2740.webp",
+                    "/files/photos/Vendetta/_DSF8298.webp",
+                    "/files/photos/Vendetta/_DSF8303.webp",
+                    "/files/photos/Vendetta/_DSF8304.webp",
+                    "/files/photos/Vendetta/_DSF8467.webp",
+                    "/files/photos/Vendetta/_DSF8533.webp"
+                ]
             }
         ]
     },
