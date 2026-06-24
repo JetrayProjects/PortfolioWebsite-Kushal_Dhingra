@@ -34,7 +34,7 @@ export default function About() {
                 <h2 className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-12">
                     About Me
                 </h2>
-                <p ref={textRef} className="text-2xl md:text-4xl lg:text-5xl leading-tight font-light text-[#ffffff] text-balance">
+                <p ref={textRef} className="text-2xl md:text-4xl lg:text-3xl leading-tight font-light text-[#ffffff] text-balance">
                     Hi, I'm Kushal, a cinematographer, filmmaker, and visual artist from India.
                     <br/><br/>
                     After graduating from Edinburgh Napier University in Scotland, I've been working across films, music videos, and commercial projects in both the UK and India. I'm drawn to stories about people, culture, and identity, and I love using visuals to bring emotion and atmosphere to the screen.
