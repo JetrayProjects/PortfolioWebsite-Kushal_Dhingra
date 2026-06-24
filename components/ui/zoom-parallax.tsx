@@ -71,7 +71,8 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
                                     alt={alt || `Parallax image ${index + 1}`}
                                     fill
                                     className="object-cover"
-                                    priority={index < 3}
+                                    priority={true}
+                                    sizes="(max-width: 768px) 60vw, 35vw"
                                 />
                             </div>
                         </motion.div>

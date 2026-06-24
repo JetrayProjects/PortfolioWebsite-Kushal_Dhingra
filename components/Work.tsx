@@ -57,6 +57,7 @@ function ProjectRow({
                         src={project.poster}
                         alt={project.title}
                         fill
+                        sizes="(max-width: 768px) 80vw, 60vw"
                         className={cn(
                             "object-cover transition-transform duration-1000", 
                             (isHovered || isMobile) ? "scale-100" : "scale-105",

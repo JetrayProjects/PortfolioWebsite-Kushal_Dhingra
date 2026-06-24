@@ -195,8 +195,9 @@ export default function ProjectPage({
                                         alt={`${project.title} still ${idx + 1}`}
                                         width={800}
                                         height={600}
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                         className="w-full h-auto"
-                                        priority={idx < 5}
+                                        priority={idx < 2}
                                     />
                                 </div>
                             ))}
