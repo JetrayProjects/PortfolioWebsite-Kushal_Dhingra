@@ -42,32 +42,30 @@ export default function ProjectPage({
             return;
         }
 
-        // Wait for the first 5 images to load so getBoundingClientRect returns real sizes
         const imageEls = [0, 1, 2, 3, 4]
             .map((idx) => document.querySelector(`#stills-img-${idx} img`) as HTMLImageElement)
             .filter(Boolean);
 
-        const allLoaded = () => imageEls.every((img) => img.complete && img.naturalHeight > 0);
+        let ctx: gsap.Context;
+        let isSetup = false;
+        let timeoutId: NodeJS.Timeout;
 
         const setupAnimation = () => {
+            if (isSetup) return;
+            isSetup = true;
+
             // Wait one frame for layout to settle after images load
             requestAnimationFrame(() => {
-                const ctx = gsap.context(() => {
+                ctx = gsap.context(() => {
                     const vh = window.innerHeight;
                     const vw = window.innerWidth;
 
-                    // ===== SCREEN-RELATIVE IMAGE POSITIONS =====
-                    // Image 1 (idx 0): Top Right
-                    // Image 2 (idx 1): Top Left
-                    // Image 3 (idx 2): Bottom Right
-                    // Image 4 (idx 3): Center
-                    // Image 5 (idx 4): Bottom Left
                     const screenPositions = [
-                        { screenX: 0.80, screenY: 0.10, rotation: -8,  scale: 1.0 },  // Top Right
-                        { screenX: 0.15, screenY: 0.10, rotation: 12,  scale: 1.0 },  // Top Left
-                        { screenX: 0.80, screenY: 0.80, rotation: 3,   scale: 1.0 },  // Bottom Right
-                        { screenX: 0.50, screenY: 0.45, rotation: -5,  scale: 1.0 },  // Center
-                        { screenX: 0.15, screenY: 0.80, rotation: -15, scale: 1.0 },  // Bottom Left
+                        { screenX: 0.80, screenY: 0.10, rotation: -8,  scale: 1.0 },
+                        { screenX: 0.15, screenY: 0.10, rotation: 12,  scale: 1.0 },
+                        { screenX: 0.80, screenY: 0.80, rotation: 3,   scale: 1.0 },
+                        { screenX: 0.50, screenY: 0.45, rotation: -5,  scale: 1.0 },
+                        { screenX: 0.15, screenY: 0.80, rotation: -15, scale: 1.0 },
                     ];
 
                     const tl = gsap.timeline({
@@ -102,32 +100,35 @@ export default function ProjectPage({
 
                     setLoaded(true);
                 });
-
-                return () => ctx.revert();
             });
+        };
+
+        const allLoaded = () => imageEls.every((img) => img.complete && img.naturalHeight > 0);
+
+        const onLoad = () => {
+            if (allLoaded()) setupAnimation();
         };
 
         if (allLoaded()) {
             setupAnimation();
         } else {
-            // Listen for each image to load
-            let loadedCount = imageEls.filter((img) => img.complete && img.naturalHeight > 0).length;
-            const onLoad = () => {
-                loadedCount++;
-                if (loadedCount >= imageEls.length) {
-                    setupAnimation();
-                }
-            };
             imageEls.forEach((img) => {
                 if (!(img.complete && img.naturalHeight > 0)) {
                     img.addEventListener('load', onLoad, { once: true });
                 }
             });
-
-            return () => {
-                imageEls.forEach((img) => img.removeEventListener('load', onLoad));
-            };
+            
+            // Safety fallback: if lazy images fail to fetch or get stuck offscreen
+            timeoutId = setTimeout(() => {
+                setupAnimation();
+            }, 1000);
         }
+
+        return () => {
+            clearTimeout(timeoutId);
+            imageEls.forEach((img) => img.removeEventListener('load', onLoad));
+            if (ctx) ctx.revert();
+        };
     }, [project]);
 
     if (!project) {
@@ -197,7 +198,7 @@ export default function ProjectPage({
                                         height={600}
                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                         className="w-full h-auto"
-                                        priority={idx < 2}
+                                        priority={idx < 5}
                                     />
                                 </div>
                             ))}
