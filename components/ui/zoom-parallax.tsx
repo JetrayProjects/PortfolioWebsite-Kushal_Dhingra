@@ -72,7 +72,6 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
                                     fill
                                     className="object-cover"
                                     priority={index < 3}
-                                    unoptimized
                                 />
                             </div>
                         </motion.div>

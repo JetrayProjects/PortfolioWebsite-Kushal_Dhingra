@@ -134,9 +134,8 @@ export const workSections: WorkSectionType[] = [
                 poster: "/files/photos/The-Blade-and-the-Butterfly/README.webp",
                 youtubeUrl: "https://www.youtube.com/embed/Z9fYMrjp7xA?si=hC2_XiJGj3FeAtIF",
                 about: [
-                    "Hi, I'm Kushal, a cinematographer, filmmaker, and visual artist from India.",
-                    "After graduating from Edinburgh Napier University in Scotland, I've been working across films, music videos, and commercial projects in both the UK and India. I'm drawn to stories about people, culture, and identity, and I love using visuals to bring emotion and atmosphere to the screen.",
-                    "When I'm not behind the camera, I'm usually developing new film ideas, taking photographs, or searching for good light.",
+                    "The Blade and the Butterfly is a thriller that follows Sonia, a ballet dancer whose life is thrown into chaos when she is kidnapped by gangsters tied to her instructor Andre's criminal past.",
+                    "As Andre's attempt to rescue her ends in defeat, Sonia is forced to fight for her own survival. Set against the backdrop of an abandoned nightclub, her struggle is intercut with glimpses of her ballet performance, Birth of the Butterfly, as she discovers the strength to overcome her captor and reclaim her freedom."
                 ],
                 stills: []
             }
@@ -213,4 +212,16 @@ export function getProjectById(id: string): Project | undefined {
         if (found) return found;
     }
     return undefined;
+}
+
+export function getAdjacentProjects(currentId: string): { prev: Project | null, next: Project | null } {
+    const allProjects = workSections.flatMap((s) => s.projects);
+    const currentIndex = allProjects.findIndex((p) => p.id === currentId);
+    
+    if (currentIndex === -1) return { prev: null, next: null };
+
+    return {
+        prev: currentIndex > 0 ? allProjects[currentIndex - 1] : null,
+        next: currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null,
+    };
 }

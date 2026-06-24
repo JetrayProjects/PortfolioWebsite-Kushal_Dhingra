@@ -57,7 +57,6 @@ function ProjectRow({
                         src={project.poster}
                         alt={project.title}
                         fill
-                        unoptimized
                         className={cn(
                             "object-cover transition-transform duration-1000", 
                             (isHovered || isMobile) ? "scale-100" : "scale-105",

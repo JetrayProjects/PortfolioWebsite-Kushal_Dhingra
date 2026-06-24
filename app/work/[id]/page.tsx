@@ -5,9 +5,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { getProjectById } from "@/lib/data";
+import { getProjectById, getAdjacentProjects } from "@/lib/data";
 import ProjectNavbar from "@/components/ProjectNavbar";
 import ProjectBackground from "@/components/ui/ProjectBackground";
+import Link from "next/link";
 
 // export function generateStaticParams() {
 //     return workSections.flatMap((section) =>
@@ -24,6 +25,7 @@ export default function ProjectPage({
 }) {
     const resolvedParams = use(params);
     const project = getProjectById(resolvedParams.id);
+    const { prev, next } = getAdjacentProjects(resolvedParams.id);
     const [loaded, setLoaded] = useState(false);
 
     // Force scroll to top instantly on mount — prevents scroll restoration
@@ -140,7 +142,7 @@ export default function ProjectPage({
                 transition: "opacity 0.1s ease-in",
             }}
         >
-            <ProjectNavbar />
+            <ProjectNavbar prev={prev} next={next} />
 
             <ProjectBackground />
 
@@ -195,7 +197,6 @@ export default function ProjectPage({
                                         height={600}
                                         className="w-full h-auto"
                                         priority={idx < 5}
-                                        unoptimized
                                     />
                                 </div>
                             ))}
@@ -225,6 +226,8 @@ export default function ProjectPage({
                     </div>
                 </section>
             )}
+
+            {/* Project Navigation is now handled by ProjectNavbar */}
         </main>
     );
 }
