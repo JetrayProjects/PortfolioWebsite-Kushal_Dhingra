@@ -5,12 +5,34 @@ import { useState } from "react";
 export default function Contact() {
     const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus("submitting");
-        setTimeout(() => {
-            setStatus("success");
-        }, 1500);
+        
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        try {
+            // Using FormSubmit.co to route the form data to your email without a backend
+            const response = await fetch("https://formsubmit.co/ajax/kushaldhingrafilms@gmail.com", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                setStatus("success");
+                form.reset();
+            } else {
+                setStatus("idle");
+                alert("Something went wrong. Please try again or email directly.");
+            }
+        } catch (error) {
+            setStatus("idle");
+            alert("Network error. Please try again.");
+        }
     };
 
     return (
@@ -23,23 +45,34 @@ export default function Contact() {
                     <div className="p-8 border border-[#286976]/30 bg-[#286976]/10 text-center">
                         <h3 className="text-2xl text-white font-light">Message Received</h3>
                         <p className="text-[#89898b] mt-2">I will get back to you shortly.</p>
+                        <button 
+                            onClick={() => setStatus("idle")}
+                            className="mt-6 text-xs uppercase tracking-[0.2em] text-white hover:text-[#286976] transition-colors underline"
+                        >
+                            Send another message
+                        </button>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className="space-y-12">
+                        {/* Security & Spam Prevention fields */}
+                        <input type="text" name="_honey" style={{ display: 'none' }} />
+                        <input type="hidden" name="_captcha" value="false" />
+                        <input type="hidden" name="_subject" value="New Contact Form Submission - Kushal Dhingra Portfolio" />
+                        
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div className="space-y-2 flex flex-col items-start">
                                 <label className="text-xs tracking-[0.2em] uppercase text-[#89898b]">Name</label>
-                                <input required type="text" className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20" placeholder="Your name" />
+                                <input required name="name" type="text" className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20" placeholder="Your name" />
                             </div>
                             <div className="space-y-2 flex flex-col items-start">
                                 <label className="text-xs tracking-[0.2em] uppercase text-[#89898b]">Email</label>
-                                <input required type="email" className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20" placeholder="your@email.com" />
+                                <input required name="email" type="email" className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20" placeholder="your@email.com" />
                             </div>
                         </div>
 
                         <div className="space-y-2 flex flex-col items-start">
                             <label className="text-xs tracking-[0.2em] uppercase text-[#89898b]">Message</label>
-                            <textarea required rows={4} className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20 resize-none" placeholder="Tell me about your project..."></textarea>
+                            <textarea required name="message" rows={4} className="w-full bg-transparent border-b border-[#89898b]/30 py-4 outline-none focus:border-[#286976] transition-colors text-white text-lg placeholder:text-white/20 resize-none" placeholder="Tell me about your project..."></textarea>
                         </div>
 
                         <button

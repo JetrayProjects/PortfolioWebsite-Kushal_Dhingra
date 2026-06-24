@@ -1,91 +1,24 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-const experience = [
-    { role: "Director of Photography", company: "Freelance", years: "2020 - Present" },
-    { role: "Cinematographer", company: "Entourage Films", years: "2018 - 2020" },
-    { role: "Camera Assistant", company: "Multiple Projects", years: "2015 - 2018" }
-];
-
-const education = [
-    { degree: "B.A. Cinematography", school: "Film School Name", years: "2011 - 2015" }
-];
+import Link from "next/link";
 
 export default function CV() {
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const elements = gsap.utils.toArray('.cv-item');
-
-        elements.forEach((el, i) => {
-            gsap.fromTo(el as HTMLElement,
-                { autoAlpha: 0, y: 30 },
-                {
-                    autoAlpha: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: el as HTMLElement,
-                        start: "top 85%",
-                    }
-                }
-            );
-        });
-
-        return () => ScrollTrigger.getAll().forEach(t => t.kill());
-    }, []);
-
     return (
-        <section id="cv" ref={sectionRef} className="w-full bg-[#000000] py-24 px-8 md:px-16 text-[#ffffff]">
-            <div className="max-w-4xl mx-auto space-y-24">
-
-                {/* Experience */}
-                <div>
-                    <h2 className="cv-item text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-12 border-b border-[#89898b]/20 pb-4">
-                        Experience
-                    </h2>
-                    <div className="space-y-12">
-                        {experience.map((exp, i) => (
-                            <div key={i} className="cv-item flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-                                <div className="flex-1">
-                                    <h3 className="text-2xl md:text-3xl font-light tracking-wide">{exp.role}</h3>
-                                    <p className="text-[#286976] tracking-widest uppercase text-xs mt-2 font-semibold">{exp.company}</p>
-                                </div>
-                                <div className="text-[#89898b] tracking-wider text-sm">
-                                    {exp.years}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+        <section id="cv" className="w-full bg-[#000000] py-40 px-8 md:px-16 text-[#ffffff] flex justify-center items-center">
+            <Link 
+                href="/files/photos/Kushal_Images/Kushal-Dhingra-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cv-item relative inline-flex group rounded-full p-[8px] hover:scale-105 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] transform-gpu"
+            >
+                {/* Border mask layer isolated to prevent scaling flicker */}
+                <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+                    <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#111111_0%,#ffffff_50%,#111111_100%)] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-
-                {/* Education */}
-                <div>
-                    <h2 className="cv-item text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-12 border-b border-[#89898b]/20 pb-4">
-                        Education
-                    </h2>
-                    <div className="space-y-12">
-                        {education.map((edu, i) => (
-                            <div key={i} className="cv-item flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-                                <div className="flex-1">
-                                    <h3 className="text-2xl md:text-3xl font-light tracking-wide">{edu.degree}</h3>
-                                    <p className="text-[#286976] tracking-widest uppercase text-xs mt-2 font-semibold">{edu.school}</p>
-                                </div>
-                                <div className="text-[#89898b] tracking-wider text-sm">
-                                    {edu.years}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-            </div>
+                
+                <span className="relative z-10 flex items-center gap-6 px-12 py-6 w-full h-full rounded-full bg-black group-hover:bg-[#0a0a0a] transition-colors duration-500">
+                    <span className="text-sm md:text-lg tracking-[0.3em] uppercase font-medium text-[#d1d1d1] group-hover:text-white transition-colors duration-500">View Curriculum Vitae</span>
+                    <span className="text-2xl text-[#89898b] group-hover:text-white group-hover:translate-x-3 transition-all duration-500">→</span>
+                </span>
+            </Link>
         </section>
     );
 }

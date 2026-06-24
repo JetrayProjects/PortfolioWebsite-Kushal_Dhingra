@@ -35,7 +35,11 @@ export default function About() {
                     About Me
                 </h2>
                 <p ref={textRef} className="text-2xl md:text-4xl lg:text-5xl leading-tight font-light text-[#ffffff] text-balance">
-                    Through the lens, I seek the unspoken narratives of life. My visual approach blends stark cinematic realism with a refined, meticulous eye for light, shadow, and emotion.
+                    Hi, I'm Kushal, a cinematographer, filmmaker, and visual artist from India.
+                    <br/><br/>
+                    After graduating from Edinburgh Napier University in Scotland, I've been working across films, music videos, and commercial projects in both the UK and India. I'm drawn to stories about people, culture, and identity, and I love using visuals to bring emotion and atmosphere to the screen.
+                    <br/><br/>
+                    When I'm not behind the camera, I'm usually developing new film ideas, taking photographs, or searching for good light.
                 </p>
             </div>
         </section>

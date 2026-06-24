@@ -18,11 +18,11 @@ export default function Navbar() {
             "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 transition-all duration-300",
             scrolled ? "bg-black/90 backdrop-blur-md py-4 shadow-sm" : "bg-transparent"
         )}>
-            <div className="text-xl tracking-widest uppercase font-semibold text-white">
-                <Link href="#home">Kushal <span className="text-[#286976]">Dhingra</span></Link>
+            <div className="text-xl tracking-widest uppercase font-semibold text-white drop-shadow-lg">
+                <Link href="#home">Kushal Dhingra</Link>
             </div>
             <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-[#89898b]">
-                {['Home', 'Work', 'CV', 'About Me', 'Contact'].map((item) => (
+                {['Home', 'About Me', 'Work', 'CV', 'Contact'].map((item) => (
                     <Link
                         key={item}
                         href={`#${item.toLowerCase().replace(' ', '-')}`}

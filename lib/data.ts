@@ -1,11 +1,12 @@
 export type Project = {
     id: string;
     title: string;
-    video: string;      // Snippet for homepage accordion
-    poster: string;     // Poster image for accordion
-    movieUrl?: string;  // Main video URL/embed
-    about?: string[];   // Array of strings, each acts as a paragraph
-    stills?: string[];  // Array of image paths for the Stills tab
+    video: string;       // Snippet for homepage accordion
+    poster: string;      // Poster image for accordion
+    youtubeUrl?: string; // YouTube Embed URL for the full movie
+    about?: string[];    // Array of strings, each acts as a paragraph
+    stills?: string[];   // Array of image paths for the Stills tab
+    role?: string;       // Role in the project
 };
 
 export type WorkSectionType = {
@@ -20,8 +21,10 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "antyesthi",
                 title: "Antyesthi",
+                role: "Director - Cinematographer",
                 video: "/files/videos/Antyesthi/Anthyesti clip.mp4",
                 poster: "/files/photos/Antyesthi/STILLS/Screenshot 2025-01-24 at 21.40.06.webp",
+                youtubeUrl: "https://www.youtube.com/embed/zv2huV2rNeY?si=U9fgFnGy54DWgK4y",
                 about: [
                     "Antyeshti is an experimental short film that follows Gopal, a first-generation Indian immigrant in the UK, as he navigates the weight of colonial history and modern-day racism. Blending narrative and surreal imagery inspired by Indian mythology, the film explores identity, cultural erasure, and inherited trauma."
                 ],
@@ -81,8 +84,10 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "back-burner",
                 title: "On the Back Burner",
+                role: "Cinematographer",
                 video: "/files/videos/On the Back Burner/oTBB.mp4",
                 poster: "/files/photos/On the Back Burner/Screenshot (549).webp",
+                youtubeUrl: "https://www.youtube.com/embed/KVu1HsqDFsk?si=WBpbr24PLyS9i1Eb",
                 about: [
                     "On the Backburner is a slow, intimate drama that follows two immigrant friends in the UK as they drift through conversations about work, dreams, and displacement. Beneath their casual exchanges lies the quiet anxiety of survival — visas, instability, and the fear of being sent back. As tensions rise between responsibility and desire, the film captures the emotional limbo of putting one’s life “on hold” in a foreign land."
                 ],
@@ -102,8 +107,10 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "until-we-dance",
                 title: "Until We Dance Again",
+                role: "Director",
                 video: "/files/videos/Until We Dance Again/The furnished room clip.mp4",
                 poster: "/files/photos/Until We Dance Again/Still 2026-02-18 204336_1.1.2.webp",
+                youtubeUrl: "https://www.youtube.com/embed/62xtHueofcE?si=xV39vI8tceKECFww",
                 about: [
                     "A moving visual piece centered around a furnished room.",
                 ],
@@ -122,10 +129,14 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "blade-butterfly",
                 title: "The Blade and the Butterfly",
+                role: "Director",
                 video: "/files/videos/TheBladeandTheButterfly/thebladeandthebutterfly.mp4",
                 poster: "/files/photos/The-Blade-and-the-Butterfly/README.webp",
+                youtubeUrl: "https://www.youtube.com/embed/Z9fYMrjp7xA?si=hC2_XiJGj3FeAtIF",
                 about: [
-                    "Contrast and conflict portrayed through light and shadow.",
+                    "Hi, I'm Kushal, a cinematographer, filmmaker, and visual artist from India.",
+                    "After graduating from Edinburgh Napier University in Scotland, I've been working across films, music videos, and commercial projects in both the UK and India. I'm drawn to stories about people, culture, and identity, and I love using visuals to bring emotion and atmosphere to the screen.",
+                    "When I'm not behind the camera, I'm usually developing new film ideas, taking photographs, or searching for good light.",
                 ],
                 stills: []
             }
@@ -137,6 +148,7 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "vendetta",
                 title: "Vendetta",
+                role: "Visual Director",
                 video: "",
                 poster: "/files/photos/Vendetta/IMG_2729.webp",
                 about: [
@@ -168,10 +180,12 @@ export const workSections: WorkSectionType[] = [
         title: "Music Video",
         projects: [
             {
-                id: "dundidun",
+                id: "mysie",
                 title: "Mysie - Dun Di Dun",
-                video: "files/videos/MysieDunDiDun/dundidun.mp4",
+                role: "Gaffer",
+                video: "/files/videos/MysieDunDiDun/dundidun.mp4",
                 poster: "/files/photos/Mysie-DunDiDun/Untitled.webp",
+                youtubeUrl: "https://www.youtube.com/embed/WSASXHaXZFA?si=AOVc7yhDFsCJeWBX",
                 about: [
                     "Music video for Mysie - Dun Di Dun.",
                 ],
@@ -180,8 +194,10 @@ export const workSections: WorkSectionType[] = [
             {
                 id: "cavn",
                 title: "CAVN - Carving Stones ft",
+                role: "Cinematographer",
                 video: "/files/videos/cavn/Untitled.mp4",
                 poster: "/files/photos/cavn/cavn.webp",
+                youtubeUrl: "https://www.youtube.com/embed/YyHWmz4JURM?si=Hn1b6ayh01mGn0gM",
                 about: [
                     "Music video for CAVN - Carving Stones.",
                 ],
@@ -189,10 +205,6 @@ export const workSections: WorkSectionType[] = [
             }
         ]
     },
-    {
-        title: "Film Photography",
-        projects: []
-    }
 ];
 
 export function getProjectById(id: string): Project | undefined {

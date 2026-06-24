@@ -2,10 +2,12 @@
 
 import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getProjectById } from "@/lib/data";
 import ProjectNavbar from "@/components/ProjectNavbar";
+import ProjectBackground from "@/components/ui/ProjectBackground";
 
 // export function generateStaticParams() {
 //     return workSections.flatMap((section) =>
@@ -140,6 +142,8 @@ export default function ProjectPage({
         >
             <ProjectNavbar />
 
+            <ProjectBackground />
+
             {/* About Section (z-20 so it sits above Stills structurally during the overlap) */}
             <section
                 id="about"
@@ -148,9 +152,15 @@ export default function ProjectPage({
                 <div className="absolute inset-0 bg-transparent z-0" />
 
                 <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
-                    <h1 className="text-5xl md:text-7xl lg:text-9xl font-light tracking-widest uppercase mb-16 mix-blend-difference text-white">
+                    <h1 className={`text-5xl md:text-7xl lg:text-9xl font-light tracking-widest uppercase mix-blend-difference text-white ${project.role ? "mb-6" : "mb-16"}`}>
                         {project.title}
                     </h1>
+                    
+                    {project.role && (
+                        <p className="text-xl md:text-2xl uppercase tracking-[0.3em] text-[#89898b] mb-16 drop-shadow-lg">
+                            {project.role}
+                        </p>
+                    )}
 
                     <div className="space-y-8 text-lg md:text-2xl lg:text-3xl font-light leading-relaxed max-w-4xl text-balance">
                         {project.about?.map((paragraph, idx) => (
@@ -163,14 +173,14 @@ export default function ProjectPage({
                 </div>
             </section>
 
-            {/* Stills Section (z-10) */}
-            <section id="stills" className="w-full min-h-screen bg-transparent px-4 md:px-16 py-24 relative z-10">
-                <div className="max-w-[1400px] mx-auto">
-                    <h2 className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-16 text-center mt-[10vh]">
-                        Stills
-                    </h2>
+            {/* Stills Section - Only render if there are stills */}
+            {project.stills && project.stills.length > 0 && (
+                <section id="stills" className="w-full min-h-screen bg-transparent px-4 md:px-16 py-24 relative z-10">
+                    <div className="max-w-[1400px] mx-auto">
+                        <h2 className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-16 text-center mt-[10vh]">
+                            Stills
+                        </h2>
 
-                    {project.stills && project.stills.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 items-start">
                             {project.stills.map((still, idx) => (
                                 <div
@@ -178,49 +188,43 @@ export default function ProjectPage({
                                     id={`stills-img-${idx}`}
                                     className="break-inside-avoid relative overflow-hidden bg-black/50 rounded-sm"
                                 >
-                                    <img
+                                    <Image
                                         src={still}
                                         alt={`${project.title} still ${idx + 1}`}
+                                        width={800}
+                                        height={600}
                                         className="w-full h-auto"
-                                        loading={idx < 5 ? "eager" : "lazy"}
+                                        priority={idx < 5}
+                                        unoptimized
                                     />
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <div className="flex flex-col items-center justify-center h-[40vh] border border-[#89898b]/20 rounded-md">
-                            <p className="text-[#89898b] uppercase tracking-[0.2em] text-xs">Stills coming soon</p>
-                            <p className="text-[#89898b]/50 mt-4 text-sm font-light">(Waiting on imagery from the director)</p>
-                        </div>
-                    )}
-                </div>
-            </section>
-
-            {/* Movie Section */}
-            <section id="movie" className="w-full min-h-[90vh] bg-[#000000] flex flex-col items-center justify-center px-4 md:px-16 py-24 relative z-10 pb-40">
-                <div className="w-full max-w-[1400px] mx-auto">
-                    <h2 className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-12 text-center">
-                        The Film
-                    </h2>
-
-                    <div className="relative w-full aspect-video bg-black/50 border border-[#89898b]/20 rounded-lg overflow-hidden flex items-center justify-center shadow-2xl">
-                        {project.movieUrl ? (
-                            // Determine if YouTube, Vimeo, or raw MP4 later. For now, assuming raw video
-                            <video
-                                src={project.movieUrl}
-                                controls
-                                poster={project.poster}
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            <div className="flex flex-col items-center text-center p-8">
-                                <span className="text-4xl text-[#89898b]/30 mb-4 block">▹</span>
-                                <p className="text-[#89898b] uppercase tracking-[0.2em] text-xs">Video coming soon</p>
-                            </div>
-                        )}
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
+
+            {/* Movie Section - Only render if there is a youtubeUrl */}
+            {project.youtubeUrl && (
+                <section id="movie" className="w-full min-h-[90vh] bg-[#000000] flex flex-col items-center justify-center px-4 md:px-16 py-24 relative z-10 pb-40">
+                    <div className="w-full max-w-[1400px] mx-auto">
+                        <h2 className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#89898b] mb-12 text-center">
+                            The Film
+                        </h2>
+
+                        <div className="relative w-full aspect-video bg-black/50 border border-[#89898b]/20 rounded-lg overflow-hidden flex items-center justify-center shadow-2xl">
+                            <iframe 
+                                className="w-full h-full"
+                                src={project.youtubeUrl} 
+                                title={`${project.title} Video Player`}
+                                frameBorder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </section>
+            )}
         </main>
     );
 }

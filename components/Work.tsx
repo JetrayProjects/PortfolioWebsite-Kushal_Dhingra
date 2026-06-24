@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { workSections, Project } from "@/lib/data";
 
@@ -52,10 +53,16 @@ function ProjectRow({
                 <div className={cn("absolute inset-0 bg-[#000000]/60 z-10 transition-opacity duration-700", (isHovered || isMobile) ? "opacity-30" : "opacity-80")} />
 
                 {project.poster && (
-                    <img
+                    <Image
                         src={project.poster}
                         alt={project.title}
-                        className={cn("absolute inset-0 w-full h-full object-cover transition-transform duration-1000", (isHovered || isMobile) ? "scale-100 opacity-0 md:opacity-100" : "scale-105")}
+                        fill
+                        unoptimized
+                        className={cn(
+                            "object-cover transition-transform duration-1000", 
+                            (isHovered || isMobile) ? "scale-100" : "scale-105",
+                            (project.video && isMobile) ? "opacity-0 md:opacity-100" : "opacity-100"
+                        )}
                     />
                 )}
 
@@ -76,8 +83,11 @@ function ProjectRow({
                 <h3 className={cn("text-3xl md:text-5xl lg:text-7xl font-light tracking-widest uppercase transition-all duration-700 origin-left text-white", (!isMobile && isOthersHovered) ? "opacity-20 translate-y-4 scale-95" : "opacity-100 translate-y-0 scale-100")}>
                     {project.title}
                 </h3>
-
-
+                {project.role && (
+                    <p className={cn("text-sm md:text-lg tracking-[0.2em] uppercase mt-4 transition-all duration-700 origin-left text-[#89898b]", (!isMobile && isOthersHovered) ? "opacity-20 translate-y-4 scale-95" : "opacity-100 translate-y-0 scale-100")}>
+                        {project.role}
+                    </p>
+                )}
             </div>
         </Link>
     );

@@ -10,9 +10,9 @@ export default function Home() {
     <main className="min-h-screen bg-[#000000]">
       <Navbar />
       <Hero />
+      <About />
       <Work />
       <CV />
-      <About />
       <Contact />
     </main>
   );

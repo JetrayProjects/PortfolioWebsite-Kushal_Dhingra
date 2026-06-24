@@ -2,15 +2,16 @@
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 
-interface Image {
+interface ParallaxImage {
     src: string;
     alt?: string;
 }
 
 interface ZoomParallaxProps {
     /** Array of images to be displayed in the parallax effect max 7 images */
-    images: Image[];
+    images: ParallaxImage[];
     children?: React.ReactNode;
 }
 
@@ -65,11 +66,13 @@ export function ZoomParallax({ images, children }: ZoomParallaxProps) {
                             className={`absolute top-0 flex h-full w-full items-center justify-center z-10 ${getStyles(index)}`}
                         >
                             <div className="relative h-[20vh] w-[60vw] md:h-[25vh] md:w-[25vw] overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:ring-1 hover:ring-white/20">
-                                <img
+                                <Image
                                     src={src || '/placeholder.svg'}
                                     alt={alt || `Parallax image ${index + 1}`}
-                                    className="h-full w-full object-cover"
-                                    loading={index < 3 ? "eager" : "lazy"}
+                                    fill
+                                    className="object-cover"
+                                    priority={index < 3}
+                                    unoptimized
                                 />
                             </div>
                         </motion.div>

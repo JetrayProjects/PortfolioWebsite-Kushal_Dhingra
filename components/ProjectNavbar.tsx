@@ -41,16 +41,15 @@ export default function ProjectNavbar() {
     };
 
     return (
-        <nav className="fixed left-1/2 -translate-x-1/2 bottom-[4vh] md:top-[4vh] md:bottom-auto z-[100] transition-all duration-500">
-            <div className="flex items-center gap-2 md:gap-4 px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/10 shadow-2xl">
-                <Link 
-                    href="/"
-                    className="text-[#89898b] hover:text-white transition-colors uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium mr-4"
-                >
-                    Back 
-                </Link>
+        <nav className="fixed left-1/2 -translate-x-1/2 bottom-[4vh] md:top-[4vh] md:bottom-auto z-[100] transition-all duration-500 flex gap-2 md:gap-4">
+            <Link 
+                href="/"
+                className="flex items-center justify-center px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/10 shadow-2xl text-[#89898b] hover:text-white transition-colors uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium"
+            >
+                Back 
+            </Link>
 
-                <div className="w-[1px] h-4 bg-white/10 hidden md:block" />
+            <div className="flex items-center gap-2 md:gap-4 px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/10 shadow-2xl">
 
                 <button 
                     onClick={(e) => scrollTo('about', e)}

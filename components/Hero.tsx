@@ -38,8 +38,8 @@ export default function Hero() {
             {/* Zoom Parallax gallery with nested title text */}
             <ZoomParallax images={images}>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-widest uppercase text-white font-light m-0 flex flex-col md:block text-center items-center">
-                    Kushal{" "}
-                    <span className="font-semibold text-[#286976]">
+                    <span className="font-semibold text-white drop-shadow-lg">Kushal</span>{" "}
+                    <span className="font-semibold text-white drop-shadow-lg">
                         Dhingra
                     </span>
                 </h1>
