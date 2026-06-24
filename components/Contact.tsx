@@ -85,6 +85,15 @@ export default function Contact() {
                     </form>
                 )}
             </div>
+
+            <footer className="max-w-3xl mx-auto w-full mt-32 pt-8 border-t border-[#89898b]/10 flex flex-col md:flex-row items-center justify-between text-[10px] text-[#89898b]/40 tracking-wider">
+                <p>© {new Date().getFullYear()} Kushal Dhingra. All rights reserved.</p>
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mt-4 md:mt-0 text-center md:text-left">
+                    <a href="https://www.flaticon.com/free-icons/popular" title="popular icons" target="_blank" rel="noopener noreferrer" className="hover:text-[#89898b] transition-colors">Popular icons created by Indygo - Flaticon</a>
+                    <span className="hidden md:inline">•</span>
+                    <a href="https://www.flaticon.com/free-icons/imdb" title="imdb icons" target="_blank" rel="noopener noreferrer" className="hover:text-[#89898b] transition-colors">Imdb icons created by Freepik - Flaticon</a>
+                </div>
+            </footer>
         </section>
     );
 }
