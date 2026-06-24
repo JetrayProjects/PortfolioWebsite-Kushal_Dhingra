@@ -22,7 +22,7 @@ const images = [
         alt: "Until we dance again",
     },
     {
-        src: "/files/photos/Vendetta/000132770024.webp",
+        src: "/files/photos/Vendetta/_DSF8533.webp",
         alt: "Vendetta",
     },
     {
